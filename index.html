@@ -3,15 +3,43 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.js"></script>
 <script src="//code.bdstatic.com/npm/leancloud-storage@4.12.0/dist/av-min.js"></script>
 <script>  
+  function getNowFormatDate() {
+    var day = new Date();
+    var Year = 0;
+    var Month = 0;
+    var Day = 0;
+    var CurrentDate = "";
+    //初始化时间
+    //Year= day.getYear();//有火狐下2008年显示108的bug
+    Year = day.getFullYear(); //ie火狐下都可以
+    Month = day.getMonth() + 1;
+    Day = day.getDate();
+    //Hour = day.getHours();
+    // Minute = day.getMinutes();
+    // Second = day.getSeconds();
+    CurrentDate += Year + "-";
+    if (Month >= 10) {
+      CurrentDate += Month + "-";
+    } else {
+      CurrentDate += "0" + Month + "-";
+    }
+    if (Day >= 10) {
+      CurrentDate += Day;
+    } else {
+      CurrentDate += "0" + Day;
+    }
+    return CurrentDate;
+  }
   function showCount(Counter){
+    var today = getNowFormatDate();
     var query = new AV.Query('counter');
-    query.equalTo('dateDay', '2021-11-11');
+    query.equalTo('dateDay', today);
     query.first().then((today_counter) => {
       console.log(today_counter);
       if(!today_counter){
         today_counter = new Counter();
         today_counter.set('count', 1);
-        today_counter.set('dateDay', '2021-11-11');
+        today_counter.set('dateDay', today);
         today_counter.save().then((today_counter) => {
           // 成功保存之后，执行其他逻辑
           console.log(`保存成功。objectId：${today_counter.attributes.count}`);
