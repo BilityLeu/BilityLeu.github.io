@@ -1,1 +1,42 @@
-Hello World!
+<html>
+<head>
+<script src="//code.bdstatic.com/npm/leancloud-storage@4.12.0/dist/av-min.js"></script>
+<script>  
+  function showCount(Counter){
+    var query = new AV.Query(name);
+    query.equalTo('createdAt', '2021-11-11');
+    query.first().then((today_counter) => {
+      console.log(today_counter);
+      if(!today_counter){
+        const counter = new Counter();
+        counter.set('count', 1);
+        counter.save().then((counter) => {
+          // 成功保存之后，执行其他逻辑
+          console.log(`保存成功。objectId：${counter.count}`);
+        }, (error) => {
+          console.log(error);
+        });
+      }
+      document.getElementById('today_counter').innerText = today_counter.count;
+    });
+  } 
+  
+  $(function() {
+    AV.init({
+      appId: "qQUBeJBvjYjFHvIkdkaYN5Qv-gzGzoHsz",
+      appKey: "NFxqaaPRETuOjUWiTNdYA5YN"
+      });
+    //serverURL: "localhost"
+    var name='Counter';
+    var Counter = AV.Object.extend(name);
+    showCount(Counter);
+  });
+</script>
+</head>
+
+<body>
+  <div>
+    <span>今日浏览量:&nbsp;</span><span id="today_counter"> - </span>次.<span>历史总浏览量:&nbsp;</span><span id="total_counter"> - </span>次.
+  </div>
+</body>
+</html>
