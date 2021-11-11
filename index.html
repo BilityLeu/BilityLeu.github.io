@@ -9,17 +9,19 @@
     query.first().then((today_counter) => {
       console.log(today_counter);
       if(!today_counter){
-        const counter = new Counter();
-        counter.set('count', 1);
-        counter.set('dateDay', '2021-11-11');
-        counter.save().then((counter) => {
+        today_counter = new Counter();
+        today_counter.set('count', 1);
+        today_counter.set('dateDay', '2021-11-11');
+        today_counter.save().then((today_counter) => {
           // 成功保存之后，执行其他逻辑
-          console.log(`保存成功。objectId：${counter.count}`);
+          console.log(`保存成功。objectId：${today_counter.attributes.count}`);
         }, (error) => {
           console.log(error);
         });
-      }
-      document.getElementById('today_counter').innerText = today_counter.count;
+      } else {
+        today_counter.increment('count', 1);
+        today_counter.save();
+      document.getElementById('today_counter').innerText = today_counter.attributes.count;
     });
   } 
   
