@@ -5,12 +5,13 @@
 <script>  
   function showCount(Counter){
     var query = new AV.Query('counter');
-    query.equalTo('createdAt', '2021-11-11');
+    query.equalTo('dateDay', '2021-11-11');
     query.first().then((today_counter) => {
       console.log(today_counter);
       if(!today_counter){
         const counter = new Counter();
         counter.set('count', 1);
+        counter.set('dateDay', '2021-11-11');
         counter.save().then((counter) => {
           // 成功保存之后，执行其他逻辑
           console.log(`保存成功。objectId：${counter.count}`);
