@@ -52,6 +52,18 @@
       }
       document.getElementById('today_counter').innerText = today_counter.attributes.count;
     });
+    
+    query = new AV.Query('counter');
+    query.find().then((counters) => {
+      console.log(counters);
+      var total_counter = 0;
+      if(counters){
+        for (let counter of counters){
+          total_counter += counter.attributes.count
+        }
+      }
+      document.getElementById('today_counter').innerText = total_counter;
+    });
   } 
   
   $(function() {
