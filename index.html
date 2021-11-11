@@ -21,6 +21,7 @@
       } else {
         today_counter.increment('count', 1);
         today_counter.save();
+      }
       document.getElementById('today_counter').innerText = today_counter.attributes.count;
     });
   } 
