@@ -63,7 +63,7 @@ var rules = [
             "nyc.gov.tw",
             "penghu-nsa.gov.tw",
             "post.gov.tw",
-            "qq.com",
+            "\(?<!weixin|wx)\.qq\.com\",
             "simplecd.me",
             "sina.cn",
             "sina.com.cn",
